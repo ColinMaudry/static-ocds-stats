@@ -20,8 +20,17 @@ else
     lang=$2
 fi
 
+if [[ ! -d dist  ]]
+then
+    mkdir dist
+else
+    rm -rf dist/*
+fi
+
+cp -r css dist
+
 jq -f options.jq --slurpfile strings strings.json --arg lang $lang $jsonpath > options.json
 
-pug -P -O options.json index.pug
+pug -P -O options.json --out dist index.pug
 
 rm -f _temp.json
