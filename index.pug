@@ -1,11 +1,10 @@
 doctype html
 
 mixin infobox(nb,type)
-    .col-lg-3.col-xs-6
+    .col-md-4
         .infobox
-            .inner
-                h3= nb
-                p= type
+            h3= nb
+            p= type
 
 html(lang="en")
     head
@@ -15,11 +14,20 @@ html(lang="en")
         //- meta(name="description",content="")
         //- meta(name="author",content="")
         title OCDS static stats
-        link(rel="stylesheet",href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css")
+        link(rel="stylesheet",href="css/bootstrap.min.css")
+        link(rel="stylesheet",href="css/float-dark.css")
         link(rel="stylesheet",href="css/style.css")
     body
         .container-fluid
             .row
-                +infobox(nb_contracts,s.contracts)
-                +infobox(nb_buyers,s.buyers)
-                +infobox(nb_suppliers,s.suppliers)
+                .col-lg-8.col-lg-offset-2.col-md-10.col-md-offset-1
+                    .page-header
+                        .row
+                            h1 OCDS static stats
+                    .row
+                        .panel.panel-default
+                            .panel-heading Data from [start-date] to [end-date]
+                                .panel-body
+                                    +infobox(nb_contracts,s.contracts)
+                                    +infobox(nb_buyers,s.buyers)
+                                    +infobox(nb_suppliers,s.suppliers)

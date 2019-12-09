@@ -1,11 +1,7 @@
 body {
-    background-color: #fff;
-    color: #333;
-    padding: 60px;
+    padding-top: 60px;
 }
 
 .infobox {
-    border: 1px solid lightblue;
-    background-color: #def;
     padding:12px;
 }
