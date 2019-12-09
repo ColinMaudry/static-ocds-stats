@@ -2,6 +2,10 @@
 
 A set of scripts to generate static HTML with OCDS statistics. No database required, just OCDS JSON.
 
+## Preview
+
+![Preview of the result](./preview.png)
+
 ## Requirements
 
 - [jq](https://stedolan.github.io/jq/)
@@ -23,6 +27,14 @@ Example with French data:
 ## Localization
 
 The file `strings.json` enables the localization of the labels.
+
+## Release notes
+
+**0.1.0**
+
+- Basic render
+- Three metrics (number of contracts, buyers and suppliers)
+- String localization system
 
 ## License
 
