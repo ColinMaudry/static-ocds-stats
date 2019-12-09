@@ -1,0 +1,14 @@
+{
+  "contracts":{
+    "fr": "contrats",
+    "en": "contracts"
+  },
+  "buyers":{
+    "fr": "acheteurs",
+    "en": "buyers"
+  },
+  "suppliers":{
+    "fr": "fournisseurs",
+    "en": "suppliers"
+  }
+}
