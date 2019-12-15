@@ -54,8 +54,10 @@ fi
 
 cp -r css dist
 
-jq -f options.jq --slurpfile strings strings.json --slurpfile records $records --arg lang $lang $mainFile > options.json
+echo -e "Generating options.json..."
+jq -f options.jq --slurpfile strings ./localization/strings.json --slurpfile records $records --arg lang $lang $releases > options.json
 
+echo -e "Generating HTML..."
 pug -P -O options.json --out dist index.pug
 
 rm -f *_temp.json
