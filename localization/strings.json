@@ -10,5 +10,21 @@
   "suppliers":{
     "fr": "fournisseurs",
     "en": "suppliers"
+  },
+  "procedures": {
+    "fr": "procédures",
+    "en": "procedures"
+  },
+  "procedures_active": {
+    "fr": "procédures active",
+    "en": "active procedures"
+  },
+  "procedures_incomplete": {
+    "fr": "procédures incomplètes",
+    "en": "incomplete procedures"
+  },
+  "procedures_complete": {
+    "fr": "procédures complètes",
+    "en": "complete procedures"
   }
 }

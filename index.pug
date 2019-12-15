@@ -27,7 +27,15 @@ html(lang="en")
                     .row
                         .panel.panel-default
                             .panel-heading Data from [start-date] to [end-date]
-                                .panel-body
-                                    +infobox(nb_contracts,s.contracts)
-                                    +infobox(nb_buyers,s.buyers)
-                                    +infobox(nb_suppliers,s.suppliers)
+                            .panel-body
+                                +infobox(nb_procedures,s.procedures)
+                        .panel.panel-default
+                            .panel-body
+                                +infobox(nb_procedures_active,s.procedures_active)
+                                +infobox(nb_procedures_complete,s.procedures_complete)
+                                +infobox(nb_procedures_incomplete,s.procedures_incomplete)
+                        .panel.panel-default
+                            .panel-body
+                                +infobox(nb_contracts,s.contracts)
+                                +infobox(nb_buyers,s.buyers)
+                                +infobox(nb_suppliers,s.suppliers)
