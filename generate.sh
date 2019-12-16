@@ -22,7 +22,6 @@ function printUsage {
     Options:
 
     -r: path or HTTP URL to a release package (mandatory)
-    -x: path or HTTP URL to a record package (optional)
     -l: output language (en or fr) (optional, defaults to en)
     -s: sets the beginning of the time range to filter releases (format YYYY-MM-DD, optional)
     -e: sets the end of the time range to filter releases (format YYYY-MM-DD, optional)
@@ -62,21 +61,22 @@ fi
 
 if [[ ! -s "$releases" ]]
 then
-    echo -e "[ERROR] You must at least specify the path or HTTP URL of an OCDS release package using -r [/path/to/release package].\nYou can optionnaly specify the path or HTTP URL of a record package using -x [/path/to/record package]."
+    echo -e "[ERROR] You must specify the path or HTTP URL of an OCDS release package using -r."
+    printUsage
     exit 1
-elif [[ ! -s $records ]]
+fi
+
+if [[ $startDate || $endDate ]]
 then
-    if [[ $startDate || $endDate ]]
+    echo "Filtering releases by date..."
+    jq -f startEndDate.jq --arg startDateIso $startDateIso --arg endDateIso $endDateIso $releases > temp_releases.json
+    releases=temp_releases.json
+    if [[ `jq '.releases | length' $releases` -eq 0 ]]
     then
-        echo "Filtering releases by date..."
-        jq -f startEndDate.jq --arg startDateIso $startDateIso --arg endDateIso $endDateIso $releases > temp_releases.json
-        releases=temp_releases.json
-        if [[ `jq '.releases | length' $releases` -eq 0 ]]
-        then
-            echo "[ERROR] The release array is empty. Is the time range too tight? ($startDateIso - $endDateIso)."
-            exit 0
-        fi
+        echo "[ERROR] The release array is empty. Is the time range too tight? ($startDateIso - $endDateIso)."
+        exit 1
     fi
+fi
 
     records="./records_temp.json"
 
@@ -95,7 +95,7 @@ fi
 cp -r css dist
 
 echo -e "Generating options.json..."
-jq -f options.jq --slurpfile strings ./localization/strings.json --slurpfile records $records --arg lang $lang $releases > options.json
+jq -f options.jq --slurpfile strings ./localization/strings.json --arg lang $lang $records > options.json
 
 echo -e "Generating HTML..."
 pug -P -O options.json --out dist index.pug
