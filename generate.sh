@@ -16,20 +16,48 @@ function processDataPath {
     fi
 }
 
-while getopts "r:x:l:" option
+function printUsage {
+    echo "Generates HTML pages to show statistics about OCDS data.
+
+    Options:
+
+    -r: path or HTTP URL to a release package (mandatory)
+    -x: path or HTTP URL to a record package (optional)
+    -l: output language (en or fr) (optional, defaults to en)
+    -s: sets the beginning of the time range to filter releases (format YYYY-MM-DD, optional)
+    -e: sets the end of the time range to filter releases (format YYYY-MM-DD, optional)
+    "
+}
+
+while getopts "r:x:l:s:e:" option
 do
  case "${option}"
  in
      r) releases=`processDataPath "releases" ${OPTARG}`;;
      x) records=`processDataPath "records" ${OPTARG}`;;
      l) lang=${OPTARG};;
+     s) startDate=${OPTARG};;
+     e) endDate=${OPTARG};;
  esac
 done
-
 
 if [[ -z $lang ]]
 then
     lang="en"
+fi
+
+if [[ -z $startDate ]]
+then
+    startDateIso="1970-01-01T00:00:00Z"
+else
+    startDateIso="${startDate}T00:00:00Z"
+fi
+
+if [[ -z $endDate ]]
+then
+    endDateIso="3000-12-31T00:00:00Z"
+else
+    endDateIso="${endDate}T00:00:00Z"
 fi
 
 if [[ ! -s "$releases" ]]
@@ -38,6 +66,18 @@ then
     exit 1
 elif [[ ! -s $records ]]
 then
+    if [[ $startDate || $endDate ]]
+    then
+        echo "Filtering releases by date..."
+        jq -f startEndDate.jq --arg startDateIso $startDateIso --arg endDateIso $endDateIso $releases > temp_releases.json
+        releases=temp_releases.json
+        if [[ `jq '.releases | length' $releases` -eq 0 ]]
+        then
+            echo "[ERROR] The release array is empty. Is the time range too tight? ($startDateIso - $endDateIso)."
+            exit 0
+        fi
+    fi
+
     records="./records_temp.json"
 
     echo -e "\nGenerating record package from release package..."
