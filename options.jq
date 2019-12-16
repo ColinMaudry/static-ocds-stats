@@ -7,7 +7,7 @@
     "nb_contracts": $contracts | length,
     "nb_suppliers":  $suppliers | length,
     "nb_buyers": $buyers | length,
-    "nb_procedures": ($compiledReleases[] | length),
+    "nb_procedures": ($compiledReleases | length),
     "nb_procedures_active": ([$compiledReleases[] | select(.tender.status == "active")] | length),
     "nb_procedures_incomplete": ([$compiledReleases[] | select(
         .tender.status == "withdrawn" or
