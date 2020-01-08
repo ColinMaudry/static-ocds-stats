@@ -45,6 +45,13 @@ then
     lang="en"
 fi
 
+if [[ ! -s "$releases" ]]
+then
+    echo -e "[ERROR] You must specify the path or HTTP URL of an OCDS release package using -r."
+    printUsage
+    exit 1
+fi
+
 if [[ -z $startDate ]]
 then
     startDateIso="1970-01-01T00:00:00Z"
@@ -57,13 +64,6 @@ then
     endDateIso="3000-12-31T00:00:00Z"
 else
     endDateIso="${endDate}T00:00:00Z"
-fi
-
-if [[ ! -s "$releases" ]]
-then
-    echo -e "[ERROR] You must specify the path or HTTP URL of an OCDS release package using -r."
-    printUsage
-    exit 1
 fi
 
 if [[ $startDate || $endDate ]]
@@ -98,4 +98,4 @@ jq -f options.jq --slurpfile strings ./localization/strings.json --arg lang $lan
 echo -e "Generating HTML..."
 pug -P -O options.json --out dist index.pug
 
-rm -f *_temp.json
+# rm -f *_temp.json
