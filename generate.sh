@@ -78,12 +78,10 @@ then
     fi
 fi
 
-    records="./records_temp.json"
+records="./records_temp.json"
 
-    echo -e "\nGenerating record package from release package..."
-    cat $releases | ocdskit compile --package > $records
-fi
-
+echo -e "\nGenerating record package from release package..."
+cat $releases | ocdskit compile --package > $records
 
 if [[ ! -d dist  ]]
 then
