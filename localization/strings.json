@@ -7,24 +7,48 @@
     "fr": "acheteurs",
     "en": "buyers"
   },
-  "suppliers":{
-    "fr": "fournisseurs",
-    "en": "suppliers"
+  "From": {
+    "en": "From",
+    "fr": "Du"
+  },
+  "lots":{
+    "en": "lots",
+    "fr": "lots"
+  },
+  "LotsStatus":{
+    "en": "Lots status",
+    "fr": "Statut des lots"
+  },
+  "Parties": {
+    "fr": "Parties",
+    "en": "Parties"
   },
   "procedures": {
     "fr": "procédures",
     "en": "procedures"
   },
-  "procedures_active": {
-    "fr": "procédures active",
-    "en": "active procedures"
+  "ProceduresStatus": {
+    "fr": "Statut des procédures",
+    "en": "Procedures status"
   },
-  "procedures_incomplete": {
-    "fr": "procédures incomplètes",
-    "en": "incomplete procedures"
+  "active": {
+    "fr": "actifs",
+    "en": "actives"
   },
-  "procedures_complete": {
-    "fr": "procédures complètes",
-    "en": "complete procedures"
+  "incomplete": {
+    "fr": "incomplets",
+    "en": "incomplete"
+  },
+  "complete": {
+    "fr": "complets",
+    "en": "complete"
+  },
+  "suppliers":{
+    "fr": "fournisseurs",
+    "en": "suppliers"
+  },
+  "to": {
+    "fr": "au",
+    "en": "to"
   }
 }

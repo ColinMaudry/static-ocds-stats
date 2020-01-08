@@ -24,20 +24,27 @@ html(lang="en")
                     .page-header
                         .row
                             h1 OCDS static stats
-                            p From #{startDate} to #{endDate}
+                            p #{s.From} #{startDate} #{s.to} #{endDate}
                     .row
                         .panel.panel-default
                             .panel-body
                                 +infobox(nb_procedures,s.procedures)
-                        h3 Procedure status
+                                +infobox(lots.number,s.lots)
+                        h3 #{s.ProceduresStatus}
                         .panel.panel-default
                             .panel-body
-                                +infobox(nb_procedures_active,s.procedures_active)
-                                +infobox(nb_procedures_complete,s.procedures_complete)
-                                +infobox(nb_procedures_incomplete,s.procedures_incomplete)
-                        h3 Parties
+                                +infobox(nb_procedures_active,s.active)
+                                +infobox(nb_procedures_complete,s.complete)
+                                +infobox(nb_procedures_incomplete,s.incomplete)
+                        unless lots.number == 0 
+                            h3 #{s.LotsStatus}
+                            .panel.panel-default
+                                .panel-body
+                                    +infobox(lots.numberActive,s.active)
+                                    +infobox(lots.numberComplete,s.complete)
+                                    +infobox(lots.numberIncomplete,s.incomplete)
+                        h3 #{s.Parties}
                         .panel.panel-default
                             .panel-body
-                                +infobox(nb_contracts,s.contracts)
                                 +infobox(nb_buyers,s.buyers)
                                 +infobox(nb_suppliers,s.suppliers)
