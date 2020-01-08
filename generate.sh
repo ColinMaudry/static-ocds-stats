@@ -101,7 +101,7 @@ fi
 cp -r css dist
 
 echo -e "Generating options.json..."
-jq -f options.jq --slurpfile strings ./localization/strings.json --arg lang $lang $records --arg startDate $startDateIso --arg endDate $endDateIso > options.json
+jq -f options.jq --slurpfile strings ./localization/strings.json --arg lang $lang $records --arg startDate ${startDateIso%T*} --arg endDate ${endDateIso%T*} > options.json
 
 echo -e "Generating HTML..."
 pug -P -O options.json --out dist index.pug
