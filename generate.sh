@@ -73,7 +73,7 @@ then
     releases=temp_releases.json
     if [[ `jq '.releases | length' $releases` -eq 0 ]]
     then
-        echo "[ERROR] The release array is empty. Is the time range too tight? ($startDateIso - $endDateIso)."
+        echo "[ERROR] The release array is empty. Is the time range too narrow? ($startDateIso - $endDateIso)."
         exit 1
     fi
 fi
