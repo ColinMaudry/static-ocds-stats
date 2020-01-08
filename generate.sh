@@ -54,10 +54,14 @@ fi
 
 if [[ -z $startDate ]]
 then
-    echo "Start date..."
-    startDateIsoTemp=`jq -r '[.releases[].date] | min' $releases`
+    # If no start is provided, the start of the data range is defined by the earliest date found in the data among certain fields.
+    startDateIsoTemp=`jq -r '[.releases[] |
+    .date,
+    .tender.tenderPeriod?.startDate,
+    .awards[]?.date,
+    .contracts[]?.dateSigned ]
+    | map(select(. != null))| min' $releases`
     startDateIso="${startDateIsoTemp%T*}T00:00:00Z"
-    echo $startDateIso
 else
     startDateIso="${startDate}T00:00:00Z"
 fi
