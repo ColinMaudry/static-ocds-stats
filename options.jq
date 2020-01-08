@@ -8,23 +8,26 @@
     "nb_contracts": $contracts | length,
     "nb_suppliers":  $suppliers | length,
     "nb_buyers": $buyers | length,
-    "nb_procedures": ($compiledReleases | length),
-    "nb_procedures_active": ([$compiledReleases[] | select(.tender.status == "active")] | length),
-    "nb_procedures_incomplete": ([$compiledReleases[] | select(
-        .tender.status == "withdrawn" or
-        .tender.status == "canceled" or
-        .tender.status == "unsuccessful")] | length),
-    "nb_procedures_complete": ([$compiledReleases[] | select(.tender.status == "complete")] | length),
-    "s": ($strings[0] | with_entries(.value |= .[$lang])),
+    "procedures": {
+        "total":($compiledReleases | length),
+        "active":([$compiledReleases[] | select(.tender.status == "active")] | length),
+        "complete": ([$compiledReleases[] | select(.tender.status == "complete")] | length),
+        "incomplete": ([$compiledReleases[] | select(
+            .tender.status == "withdrawn" or
+            .tender.status == "canceled" or
+            .tender.status == "unsuccessful")] | length)
+    },
     "lots":{
-        "number": $lots | length,
-        "numberActive": ([$lots | .[] | select(.status = "active")] | length),
-        "numberComplete": ([$lots | .[] | select(.status = "complete")] | length),
-        "numberIncomplete":([$lots | .[] | select(
+        "total": $lots | length,
+        "active": ([$lots | .[] | select(.status = "active")] | length),
+        "complete": ([$lots | .[] | select(.status = "complete")] | length),
+        "incomplete":([$lots | .[] | select(
             .tender.status == "withdrawn" or
             .tender.status == "canceled" or
             .tender.status == "unsuccessful") ] | length)
     },
+    "s": ($strings[0] | with_entries(.value |= .[$lang])),
+
     "startDate": $startDate,
     "endDate": $endDate
 }

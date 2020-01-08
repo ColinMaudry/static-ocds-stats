@@ -28,21 +28,21 @@ html(lang="en")
                     .row
                         .panel.panel-default
                             .panel-body
-                                +infobox(nb_procedures,s.procedures)
-                                +infobox(lots.number,s.lots)
+                                +infobox(procedures.total,s.procedures)
+                                +infobox(lots.total,s.lots)
                         h3 #{s.ProceduresStatus}
                         .panel.panel-default
                             .panel-body
-                                +infobox(nb_procedures_active,s.active)
-                                +infobox(nb_procedures_complete,s.complete)
-                                +infobox(nb_procedures_incomplete,s.incomplete)
+                                +infobox(procedures.active,s.active)
+                                +infobox(procedures.complete,s.complete)
+                                +infobox(procedures.incomplete,s.incomplete)
                         unless lots.number == 0 
                             h3 #{s.LotsStatus}
                             .panel.panel-default
                                 .panel-body
-                                    +infobox(lots.numberActive,s.active)
-                                    +infobox(lots.numberComplete,s.complete)
-                                    +infobox(lots.numberIncomplete,s.incomplete)
+                                    +infobox(lots.active,s.active)
+                                    +infobox(lots.complete,s.complete)
+                                    +infobox(lots.incomplete,s.incomplete)
                         h3 #{s.Parties}
                         .panel.panel-default
                             .panel-body
