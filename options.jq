@@ -14,5 +14,7 @@
         .tender.status == "canceled" or
         .tender.status == "unsuccessful")] | length),
     "nb_procedures_complete": ([$compiledReleases[] | select(.tender.status == "complete")] | length),
-    "s": ($strings[0] | with_entries(.value |= .[$lang]))
+    "s": ($strings[0] | with_entries(.value |= .[$lang])),
+    "startDate": $startDate,
+    "endDate": $endDate
 }

@@ -54,14 +54,18 @@ fi
 
 if [[ -z $startDate ]]
 then
-    startDateIso="1970-01-01T00:00:00Z"
+    echo "Start date..."
+    startDateIsoTemp=`jq -r '[.releases[].date] | min' $releases`
+    startDateIso="${startDateIsoTemp%T*}T00:00:00Z"
+    echo $startDateIso
 else
     startDateIso="${startDate}T00:00:00Z"
 fi
 
 if [[ -z $endDate ]]
 then
-    endDateIso="3000-12-31T00:00:00Z"
+    endDateIsoTemp=`jq -r '[.releases[].date] | max' $releases`
+    endDateIso="${endDateIsoTemp%T*}T23:59:59Z"
 else
     endDateIso="${endDate}T00:00:00Z"
 fi
@@ -93,7 +97,7 @@ fi
 cp -r css dist
 
 echo -e "Generating options.json..."
-jq -f options.jq --slurpfile strings ./localization/strings.json --arg lang $lang $records > options.json
+jq -f options.jq --slurpfile strings ./localization/strings.json --arg lang $lang $records --arg startDate $startDateIso --arg endDate $endDateIso > options.json
 
 echo -e "Generating HTML..."
 pug -P -O options.json --out dist index.pug
